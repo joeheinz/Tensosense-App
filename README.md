@@ -1,2 +1,2 @@
 # Tensosense-App
- For my personal App Project. 
+ For my App Project. 

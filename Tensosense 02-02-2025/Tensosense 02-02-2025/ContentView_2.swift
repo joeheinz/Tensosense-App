@@ -6,9 +6,6 @@
 //
 
 import SwiftUI
-import Charts
-
-import SwiftUI
 
 struct ContentView_2: View {
     var body: some View {
@@ -17,8 +14,6 @@ struct ContentView_2: View {
             .padding()
     }
 }
-
-
 
 #Preview {
     ContentView_2()

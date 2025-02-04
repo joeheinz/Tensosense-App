@@ -54,7 +54,7 @@ private struct ContentLayout: View {
         VStack(alignment: .leading, spacing: 20) {
             HeaderSection()
             ConnectionStatus(status: connectionStatus, color: connectionColor)
-            DeviceList(devices: bluetoothManager.devices, manager: bluetoothManager)
+            DeviceList(devices: bluetoothManager.devices)
             NavigationButtons()
         }
         .padding(.horizontal)
@@ -86,10 +86,9 @@ private struct ConnectionStatus: View {
     }
 }
 
-// ✅ Lista de Dispositivos Bluetooth (AHORA FUNCIONA BIEN)
+// ✅ Lista de Dispositivos Bluetooth (AHORA SOLO MUESTRA "Tensosense")
 private struct DeviceList: View {
     let devices: [(CBPeripheral, String)]
-    let manager: BluetoothManager
     
     var body: some View {
         Group {
@@ -98,12 +97,8 @@ private struct DeviceList: View {
             } else {
                 ScrollView {
                     LazyVStack(spacing: 12) {
-                        ForEach(devices, id: \.0.identifier) { device in
-                            DeviceCard(device: device.0,
-                                       deviceName: device.1,
-                                       isConnected: device.0 == manager.connectedPeripheral) {
-                                manager.connectToDevice(device.0)
-                            }
+                        ForEach(devices.filter { $0.1.hasPrefix("Tensosense") }, id: \.0.identifier) { device in
+                            DeviceCard(deviceName: device.1)
                         }
                     }
                 }
@@ -129,12 +124,9 @@ private struct SearchIndicator: View {
     }
 }
 
-// ✅ Tarjeta de Dispositivo Bluetooth (Muestra si está conectado)
+// ✅ Tarjeta de Dispositivo Bluetooth (Sin botón de conexión)
 private struct DeviceCard: View {
-    let device: CBPeripheral
     let deviceName: String
-    let isConnected: Bool
-    let connectAction: () -> Void
     
     var body: some View {
         HStack {
@@ -143,39 +135,16 @@ private struct DeviceCard: View {
                 .foregroundColor(.white)
             
             Spacer()
-            
-            ConnectButton(isConnected: isConnected, action: connectAction)
         }
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 12)
-                .fill(isConnected ? Color.green.opacity(0.3) : Color.black.opacity(0.3))
+                .fill(Color.black.opacity(0.3))
                 .overlay(
                     RoundedRectangle(cornerRadius: 12)
-                        .stroke(isConnected ? Color.green : Color.blue.opacity(0.2), lineWidth: 1)
+                        .stroke(Color.blue.opacity(0.2), lineWidth: 1)
                 )
         )
-    }
-}
-
-// ✅ Botón de Conectar con Estilo Moderno
-private struct ConnectButton: View {
-    let isConnected: Bool
-    let action: () -> Void
-    
-    var body: some View {
-        Button(action: action) {
-            Text(isConnected ? "Connected" : "Connect")
-                .font(.footnote.weight(.semibold))
-                .padding(.horizontal, 16)
-                .padding(.vertical, 10)
-                .background(
-                    Capsule()
-                        .fill(isConnected ? Color.green.opacity(0.8) : Color.blue.opacity(0.8))
-                )
-                .foregroundColor(.white)
-        }
-        .buttonStyle(ScaleButtonStyle())
     }
 }
 

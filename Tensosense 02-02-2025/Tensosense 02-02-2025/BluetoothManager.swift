@@ -9,6 +9,7 @@ import SwiftUI
 import Accelerate // Para FFT
 
 class BluetoothManager: NSObject, ObservableObject, CBCentralManagerDelegate, CBPeripheralDelegate {
+    @Published var buttonColor: Color = .blue //Define el color principal del Boton Almacena el color
     // 📡 Estado del Bluetooth
     private var centralManager: CBCentralManager!
     @Published var selectedPeripheral: CBPeripheral?
@@ -33,6 +34,12 @@ class BluetoothManager: NSObject, ObservableObject, CBCentralManagerDelegate, CB
     override init() {
         super.init()
         centralManager = CBCentralManager(delegate: self, queue: nil)
+    }
+    
+    func changeButtonColor() {
+        DispatchQueue.main.async{
+            self.buttonColor = self.buttonColor == .blue ? .red : .blue
+        }
     }
 
     // 🔍 **Escaneo de dispositivos**

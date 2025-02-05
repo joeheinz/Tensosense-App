@@ -6,28 +6,43 @@
 import SwiftUI
 
 struct ContentView_1: View {
-    @StateObject private var bluetoothManager = BluetoothManager()
-    @State private var message: String = "Presiona el botón"
+    @State private var goToNextView = false // ✅ Estado para controlar la navegación
+    @StateObject private var bluetoothManager = BluetoothManager() // Instancia del BluetoothManager
+
 
     var body: some View {
-        VStack {
-            Text("This is ContentView_1")
-                .font(.title)
-                .padding()
+        NavigationStack {
+            VStack {
+                Text("This is ContentView_1")
+                    .font(.title)
+                    .padding()
 
-            Text(message) // Muestra el mensaje actualizado
-
-            Button("Press") {
-                print(message)
-                message = bluetoothManager.HelloWorld() // ✅ Llamar a la función correctamente
-            }
-            NavigationLink(destination: ContentView_2()) {
-                                Text("Ir a ContentView_2")
-                                    .padding()
-                                    .background(Color.blue)
-                                    .foregroundColor(.white)
-                                    .cornerRadius(10)
+                Button("Ir a ContentView_2") {
+                    goToNextView = true // ✅ Cambia el estado al presionar
                 }
+                .padding()
+                .background(Color.blue)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+                
+                Button("Imprimir Hello Wold"){ //Imprime HelloWorld de la funcion
+                    print(bluetoothManager.HelloWorld())
+                }
+                .padding()
+                .background(Color.cyan)
+                .foregroundColor(Color.white)
+                .cornerRadius(10)
+                Button("Cambia de color el boton"){
+                    bluetoothManager.changeButtonColor()
+                }
+                .padding()
+                .background(bluetoothManager.buttonColor)
+                .foregroundColor(.white)
+                .cornerRadius(10)
+            }
+            .navigationDestination(isPresented: $goToNextView) {
+                ContentView_2() // ✅ Navega cuando el estado cambia a `true`
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ import Charts
 
 struct ContentView_3: View {
     var body: some View {
-        Text("This is ContentView_2")
+        Text("This is ContentView_3")
             .font(.title)
             .padding()
     }

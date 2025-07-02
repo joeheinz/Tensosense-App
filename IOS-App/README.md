@@ -1,21 +1,21 @@
 # Tensosense Beta
 
-Sistema de monitoreo avanzado para camiones que mide tension y aceleracion en tiempo real mediante conexion Bluetooth con el chip EFR32 "Tensosense".
+Sistema de monitoreo avanzado para camiones que mide tension y aceleracion en tiempo real mediante conexion Bluetooth con el chip "Tensosense".
 
 ## Descripcion General
 
-Tensosense Beta es una aplicacion iOS profesional diseñada para el monitoreo de sensores en camiones industriales. La aplicacion se conecta al dispositivo Tensosense (chip EFR32) via Bluetooth para capturar datos de tension y aceleracion, procesarlos en tiempo real y transmitirlos a un servidor WebSocket para analisis centralizado.
+Tensosense Beta es una aplicacion iOS profesional diseñada para el monitoreo de sensores en camiones industriales. La aplicacion se conecta al dispositivo Tensosense (chip) via Bluetooth para capturar datos de tension y aceleracion, procesarlos en tiempo real y transmitirlos a un servidor WebSocket para analisis centralizado.
 
 ## Funcionalidades Principales
 
 ### Conexion Bluetooth Multi-Usuario
-- Soporte para conexion de multiples dispositivos iOS simultaneos al chip Tensosense EFR32
+- Soporte para conexion de multiples dispositivos iOS simultaneos al chip Tensosense
 - Escaneo automatico de dispositivos Bluetooth disponibles
 - Conexion estable con reconexion automatica en caso de perdida de señal
 - Gestion inteligente de dispositivos descubiertos (filtrado por intensidad de señal RSSI > -70)
 
 ### Monitoreo de Sensores Dual
-- **Sensor de Aceleracion**: Captura datos del acelerometro integrado en el chip EFR32
+- **Sensor de Aceleracion**: Captura datos del acelerometro integrado en el chip
 - **Sensor de Tension IADC**: Monitoreo de tension mediante el convertidor analogico-digital integrado
 - Procesamiento en tiempo real con algoritmos de deteccion avanzados
 - Visualizacion grafica de datos con actualizacion en vivo
@@ -26,17 +26,6 @@ Tensosense Beta es una aplicacion iOS profesional diseñada para el monitoreo de
 - **Monitoreo de Tension**: Alertas automaticas por variaciones criticas en el ADC
 - **Sistema de Alertas**: Notificaciones visuales inmediatas para eventos criticos
 
-### Transmision de Datos WebSocket
-- Conexion en tiempo real al servidor WebSocket (ws://192.168.178.26:8000/ws)
-- Envio automatico de datos de sensores al servidor central
-- Formato JSON estandarizado para integracion con sistemas externos
-- Estado de conexion visible en la interfaz de usuario
-
-### Registro Geografico de Eventos
-- Captura automatica de coordenadas GPS cuando ocurren eventos criticos
-- Almacenamiento de eventos con ubicacion, timestamp y tipo de evento
-- Generacion de archivos CSV con registro completo de viajes
-- Mapas interactivos para visualizacion de eventos por ubicacion
 
 ### Gestion de Datos
 - **Exportacion CSV**: Archivos estructurados para analisis posterior
@@ -46,18 +35,6 @@ Tensosense Beta es una aplicacion iOS profesional diseñada para el monitoreo de
 
 ## Arquitectura Tecnica
 
-### Configuracion Bluetooth
-- **UUID Aceleracion**: c4c1f6e2-4be5-11e5-885d-feff819cdc9f
-- **UUID Tension IADC**: 00002a58-0000-1000-8000-00805f9b34fb
-- **Protocolo**: Bluetooth Low Energy (BLE)
-- **Dispositivo Objetivo**: Tensosense (chip EFR32)
-
-### Especificaciones de Sensores
-- **Escala Aceleracion**: 1000.0 (factor de conversion)
-- **Umbral Caida Libre**: 0.1g
-- **Umbral Vibracion**: 5.0 (analisis FFT)
-- **Frecuencia Muestreo**: 64 muestras para FFT
-- **Buffer Maximo**: 100 lecturas simultaneas
 
 ### Configuracion WebSocket
 - **URL Servidor**: ws://192.168.178.26:8000/ws
@@ -73,14 +50,14 @@ Tensosense Beta es una aplicacion iOS profesional diseñada para el monitoreo de
 - Permisos de ubicacion para registro geografico
 
 ### Hardware Requerido
-- Chip Tensosense EFR32 configurado y operativo
+- Chip Tensosense configurado y operativo
 - Red WiFi para conexion WebSocket
 - Servidor WebSocket ejecutandose en la red local
 
 ## Instalacion y Configuracion
 
 ### Configuracion del Dispositivo
-1. Asegurar que el chip Tensosense EFR32 este alimentado y transmitiendo
+1. Asegurar que el chip Tensosense este alimentado y transmitiendo
 2. Verificar que los UUIDs de Bluetooth coincidan con la configuracion
 3. Confirmar que el servidor WebSocket este ejecutandose en la direccion configurada
 
@@ -116,7 +93,7 @@ Tensosense Beta es una aplicacion iOS profesional diseñada para el monitoreo de
 
 ## Soporte Multi-Usuario
 
-La aplicacion soporta conexion simultanea de multiples dispositivos iOS al mismo chip Tensosense EFR32:
+La aplicacion soporta conexion simultanea de multiples dispositivos iOS al mismo chip Tensosense:
 
 - **Conexiones Simultaneas**: Hasta 5 dispositivos iOS pueden conectarse al mismo tiempo
 - **Sincronizacion de Datos**: Todos los dispositivos reciben los mismos datos del sensor
@@ -148,14 +125,6 @@ Tiempo,Aceleracion
 - **Frecuencia Envio**: Tiempo real (cada lectura de sensor)
 - **Manejo de Errores**: Reconexion automatica con backoff exponencial
 
-### Ejemplo de Datos Transmitidos
-```json
-{
-  "time": 1704204645.123,
-  "value": 1.05,
-  "sensor_type": "acceleration",
-  "device_id": "tensosense_001"
-}
 ```
 
 ## Solución de Problemas
@@ -197,7 +166,9 @@ Tiempo,Aceleracion
 ## Soporte Tecnico
 
 Para problemas relacionados con:
-- **Hardware Tensosense**: Contactar al fabricante del chip EFR32
+- **Hardware Tensosense**: Contactar al fabricante del chip
+
+
 - **Configuracion de Red**: Verificar documentacion del servidor WebSocket
 - **Funcionamiento iOS**: Revisar permisos y configuracion del dispositivo
 

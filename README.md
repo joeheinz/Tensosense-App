@@ -134,11 +134,6 @@ struct Sensor {
 ```
 
 #### UUIDs de Servicios BLE
-```swift
-struct Bluetooth {
-    static let targetServiceUUID = CBUUID(string: "c4c1f6e2-d4a2-4cbb-8e5c-96c0c4f1b3a2")
-    static let tensionServiceUUID = CBUUID(string: "00002a58-0000-1000-8000-00805f9b34fb")
-}
 ```
 
 ### Configuración del Firmware Microcontrolador
@@ -176,61 +171,7 @@ make clean && make
 
 ## Funcionalidades Avanzadas
 
-### Detección Inteligente de Eventos
 
-#### Algoritmo de Caída Libre
-```swift
-private func detectFreefall(magnitude: Double, time: Double) {
-    if magnitude < freeFallThreshold {
-        if !isFreeFall {
-            isFreeFall = true
-            showFreeFallWarning = true
-            startFallDetectionCapture()
-            saveGeographicEvent(type: .fall, value: magnitude)
-        }
-    }
-}
-```
-
-#### Análisis FFT para Oscilaciones
-```swift
-private func detectOscillationsFFT() -> Bool {
-    let sampleCount = AppConfiguration.Sensor.sampleCountForFFT
-    guard accelerations.count >= sampleCount else { return false }
-    
-    // Aplicar transformada rápida de Fourier
-    var realParts = recentData + [Double](repeating: 0.0, count: sampleCount - recentData.count)
-    var imaginaryParts = [Double](repeating: 0.0, count: sampleCount)
-    
-    // ... implementación FFT usando Accelerate framework
-    
-    return maxMagnitude > oscillationThreshold
-}
-```
-
-### Filtrado Digital Avanzado
-
-#### Filtro FIR con Ventana de Hamming
-```c
-const float firCoeffs_new[FIR_TAP_NUM_NEW] = {
-    0.05, 0.12, 0.18, 0.30, 0.18, 0.12, 0.05
-};
-
-float applyFIR_Hamming(float newSample) {
-    firBuffer_NEW[bufferIndex_new] = newSample;
-    bufferIndex_new = (bufferIndex_new + 1) % FIR_TAP_NUM_NEW;
-    
-    float output = 0.0;
-    uint8_t i, j = bufferIndex_new;
-    
-    for (i = 0; i < FIR_TAP_NUM_NEW; i++) {
-        j = (j != 0) ? (j - 1) : (FIR_TAP_NUM_NEW - 1);
-        output += firCoeffs_new[i] * firBuffer_NEW[j];
-    }
-    
-    return output;
-}
-```
 
 ### Geolocalización de Eventos
 
@@ -383,12 +324,6 @@ print("Tensión IADC: \(adcValue)")
 print("GPS: Lat:\(latitude) Lon:\(longitude)")
 ```
 
-#### Monitoreo en Tiempo Real
-```c
-// Logs del microcontrolador
-app_log_info("IADC Value: %u (%0.2f mV)\n", voltage_int, voltage_mV);
-app_log_info("IMU - Accel: X:%d Y:%d Z:%d\n", data.accel[0], data.accel[1], data.accel[2]);
-```
 
 ---
 

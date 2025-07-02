@@ -20,7 +20,7 @@ Tensosense-App es una solución completa de monitoreo de sensores en tiempo real
 - **Exportación CSV** de datos históricos
 - **Splash screen profesional** con branding personalizado
 
-### Firmware Microcontrolador (C/EFR32)
+### Firmware Microcontrolador (C)
 - **Sensores duales**: IMU (aceleración) + IADC (tensión analógica)
 - **Filtros FIR** avanzados con ventana de Hamming
 - **Detección de umbrales** configurables
@@ -378,4 +378,4 @@ Sistema profesional completo con todas las funcionalidades principales implement
 
 *Última actualización: Enero 2025*  
 *Versión del documento: 1.0*  
-*Compatibilidad: iOS 15.0+, EFR32 Series 2*
+*Compatibilidad: iOS 15.0+ Series 2*
